@@ -1,0 +1,31 @@
+{
+  "ingredient_count": 20,
+  "artificial_delay_seconds": 0.05,
+  "max_parallel": 10,
+  "repeats": 3,
+  "workload": "I/O-bound nutrition lookups through AIService + NutritionLookupPipeline",
+  "cache_state": "disabled with nutrition_cache_ttl_seconds=0 for every run",
+  "theoretical_batches": 2,
+  "sequential_seconds": {
+    "runs": [
+      1.018024500051979,
+      1.01948789996095,
+      1.020620700030122
+    ],
+    "best": 1.018024500051979,
+    "worst": 1.020620700030122,
+    "average": 1.0193777000143502
+  },
+  "concurrent_seconds": {
+    "runs": [
+      0.10426280001411214,
+      0.1252500000409782,
+      0.10289909999119118
+    ],
+    "best": 0.10289909999119118,
+    "worst": 0.1252500000409782,
+    "average": 0.11080396668209384
+  },
+  "speedup": 9.19983038999888,
+  "efficiency_percent": 91.9983038999888
+}
