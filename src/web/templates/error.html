@@ -1,0 +1,10 @@
+<div class="notice-box {% if kind == 'error' %}error-box{% else %}warning-box{% endif %} fade-in">
+  <div class="notice-title">
+    {% if kind == 'error' %}
+      <i class="fa-solid fa-circle-xmark text-danger"></i> Analysis Failed
+    {% else %}
+      <i class="fa-solid fa-triangle-exclamation text-warning"></i> Meal Unrecognized
+    {% endif %}
+  </div>
+  <p class="notice-desc">{{ message }}</p>
+</div>

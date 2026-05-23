@@ -1,0 +1,106 @@
+<div class="result-card fade-in">
+  <div class="result-header">
+    <div class="status-success"><i class="fa-solid fa-circle-check"></i> Analysis Complete</div>
+    <h3>Nutritional Summary</h3>
+  </div>
+
+  <!-- Macros & Calories Grid -->
+  <div class="metrics-grid">
+    <div class="metric-card card-kcal">
+      <div class="metric-icon"><i class="fa-solid fa-fire"></i></div>
+      <div class="metric-info">
+        <span class="metric-label">Energy</span>
+        <strong class="metric-value">{{ "%.0f"|format(result.totals.kcal) }} <span class="unit">kcal</span></strong>
+      </div>
+      <div class="metric-progress"><div class="progress-bar bg-kcal" style="width: 100%;"></div></div>
+    </div>
+    
+    <div class="metric-card card-protein">
+      <div class="metric-icon"><i class="fa-solid fa-dumbbell"></i></div>
+      <div class="metric-info">
+        <span class="metric-label">Protein</span>
+        <strong class="metric-value">{{ "%.1f"|format(result.totals.protein_g) }} <span class="unit">g</span></strong>
+      </div>
+      {% set protein_pct = result.totals.protein_g %}
+      {% if protein_pct > 100 %}{% set protein_pct = 100 %}{% endif %}
+      <div class="metric-progress"><div class="progress-bar bg-protein" style="width: {{ protein_pct }}%;"></div></div>
+    </div>
+    
+    <div class="metric-card card-carbs">
+      <div class="metric-icon"><i class="fa-solid fa-bowl-rice"></i></div>
+      <div class="metric-info">
+        <span class="metric-label">Carbs</span>
+        <strong class="metric-value">{{ "%.1f"|format(result.totals.carbs_g) }} <span class="unit">g</span></strong>
+      </div>
+      {% set carbs_pct = result.totals.carbs_g / 2 %}
+      {% if carbs_pct > 100 %}{% set carbs_pct = 100 %}{% endif %}
+      <div class="metric-progress"><div class="progress-bar bg-carbs" style="width: {{ carbs_pct }}%;"></div></div>
+    </div>
+    
+    <div class="metric-card card-fat">
+      <div class="metric-icon"><i class="fa-solid fa-droplet"></i></div>
+      <div class="metric-info">
+        <span class="metric-label">Fat</span>
+        <strong class="metric-value">{{ "%.1f"|format(result.totals.fat_g) }} <span class="unit">g</span></strong>
+      </div>
+      {% set fat_pct = result.totals.fat_g * 1.25 %}
+      {% if fat_pct > 100 %}{% set fat_pct = 100 %}{% endif %}
+      <div class="metric-progress"><div class="progress-bar bg-fat" style="width: {{ fat_pct }}%;"></div></div>
+    </div>
+  </div>
+
+  <!-- Ingredients Breakdown Table -->
+  <div class="table-wrapper">
+    <table class="premium-table">
+      <thead>
+        <tr>
+          <th>Ingredient</th>
+          <th class="text-right">Portion (g)</th>
+          <th class="text-right">Kcal</th>
+          <th class="text-right">Protein</th>
+          <th class="text-right">Carbs</th>
+          <th class="text-right">Fat</th>
+          <th>Status</th>
+          <th>Database Source</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for row in rows %}
+        <tr>
+          <td class="font-semibold">{{ row.ingredient }}</td>
+          <td class="text-right">{{ "%.1f"|format(row.grams) }} g</td>
+          <td class="text-right font-medium">{{ "%.0f"|format(row.kcal) }}</td>
+          <td class="text-right">{{ "%.1f"|format(row.protein_g) }} g</td>
+          <td class="text-right">{{ "%.1f"|format(row.carbs_g) }} g</td>
+          <td class="text-right">{{ "%.1f"|format(row.fat_g) }} g</td>
+          <td>
+            {% if row.status == 'ok' %}
+            <span class="badge-status status-ok"><i class="fa-solid fa-circle-check"></i> Resolved</span>
+            {% else %}
+            <span class="badge-status status-missing"><i class="fa-solid fa-triangle-exclamation"></i> Missing</span>
+            {% endif %}
+          </td>
+          <td>
+            {% if row.source %}
+            <span class="badge-source"><i class="fa-solid fa-server"></i> {{ row.source }}</span>
+            {% else %}
+            <span class="badge-source source-fallback"><i class="fa-solid fa-calculator"></i> Fallback</span>
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if result.errors %}
+  <div class="notice-box error-box">
+    <div class="notice-title"><i class="fa-solid fa-circle-exclamation"></i> Analysis Warnings</div>
+    <ul class="notice-list">
+      {% for error in result.errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>

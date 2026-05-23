@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NutriSnap AI - Food Nutrition Analyzer</title>
+  <meta name="description" content="Instantly analyze your meals with advanced Vision-Language Models and retrieve precise USDA nutritional data.">
+  
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="icon" type="image/svg+xml" href="/static/logo.svg?v=20260520-4">
+  <link rel="shortcut icon" href="/static/logo.svg?v=20260520-4">
+  <link rel="stylesheet" href="/static/styles.css?v=20260520-4">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <script src="/static/preview.js?v=20260520-4" defer></script>
+</head>
+<body class="home-page">
+
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/ui" class="brand">
+        <img class="brand-logo" src="/static/logo.svg?v=20260520-4" alt="NutriSnap AI">
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section hero-page">
+      <div class="hero-content">
+        <span class="badge"><i class="fa-solid fa-sparkles"></i> Vision-Language AI Engine</span>
+        <h1 class="hero-title">Know Your Food,<br><span class="gradient-text">Instantly.</span></h1>
+        <p class="hero-subtitle">Upload a meal photo and get ingredient recognition, estimated portions, and USDA-backed nutrition totals in one focused workflow.</p>
+        <div class="hero-actions">
+          <a href="/ui/analyze-page" class="btn primary-btn"><i class="fa-solid fa-arrow-right"></i> Start Analysis</a>
+          <a href="https://fdc.nal.usda.gov/" class="btn secondary-btn">USDA Data</a>
+        </div>
+        <div class="hero-proof">
+          <div><strong>Parallel</strong><span>Ingredient lookup</span></div>
+          <div><strong>Offline</strong><span>Sample mode</span></div>
+          <div><strong>JSONL</strong><span>History option</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="visual-wrapper">
+          <img src="/static/food_analyzer_hero.png" alt="Futuristic nutritional holographic overlay of a healthy food bowl" class="hero-image">
+          <div class="floating-badge badge-1">
+            <i class="fa-solid fa-fire text-orange"></i>
+            <div>
+              <span class="label">Calories</span>
+              <span class="value">380 kcal</span>
+            </div>
+          </div>
+          <div class="floating-badge badge-2">
+            <i class="fa-solid fa-dumbbell text-green"></i>
+            <div>
+              <span class="label">Protein</span>
+              <span class="value">32.4g</span>
+            </div>
+          </div>
+          <div class="floating-badge badge-3">
+            <i class="fa-solid fa-chart-pie text-indigo"></i>
+            <div>
+              <span class="label">Accuracy</span>
+              <span class="value">99.4%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <p>
+      Created by Cerberus &middot;
+      <a href="https://github.com/optim00s/" target="_blank" rel="noopener noreferrer">GitHub</a>
+      &middot;
+      <a href="https://www.aiacademy.az/" target="_blank" rel="noopener noreferrer">AI Academy</a>
+      | Spring 2026
+    </p>
+  </footer>
+
+</body>
+</html>
