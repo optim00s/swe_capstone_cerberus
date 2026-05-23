@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analyze Meal - NutriSnap AI</title>
+  <meta name="description" content="Upload a meal image and calculate nutrition with NutriSnap AI.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="icon" type="image/svg+xml" href="/static/logo.svg?v=20260520-4">
+  <link rel="shortcut icon" href="/static/logo.svg?v=20260520-4">
+  <link rel="stylesheet" href="/static/styles.css?v=20260520-4">
+  <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+  <script src="/static/preview.js?v=20260520-4" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="/ui" class="brand">
+        <img class="brand-logo" src="/static/logo.svg?v=20260520-4" alt="NutriSnap AI">
+      </a>
+    </div>
+  </header>
+
+  <main class="analyze-main">
+    <section class="analyzer-shell" aria-labelledby="analyzer-title">
+      <div class="analyzer-intro">
+        <span class="badge"><i class="fa-solid fa-camera"></i> Analyze Page</span>
+        <h1 id="analyzer-title">Nutrition Analyzer</h1>
+        <p>Select a clear PNG or JPEG meal photo. The analyzer returns totals, ingredient rows, and data-source status in the result panel.</p>
+      </div>
+
+      <div class="analyzer-layout">
+        <div class="analyzer-card">
+          <form
+            hx-post="/ui/analyze"
+            hx-target="#result"
+            hx-swap="innerHTML"
+            hx-indicator=".analysis-indicator"
+            enctype="multipart/form-data"
+          >
+            <div class="upload-widget">
+              <label class="upload-preview" for="file">
+                <input id="file" class="sr-only" name="file" type="file" accept="image/png,image/jpeg" required>
+                <div id="preview-placeholder">
+                  <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                  <span class="upload-title">Choose PNG or JPEG photo</span>
+                  <span class="upload-desc">Drop a meal image here, or click to browse</span>
+                </div>
+                <div class="preview-img-container">
+                  <img id="image-preview" alt="Selected meal preview" hidden>
+                </div>
+              </label>
+            </div>
+
+            <div class="controls-panel">
+              <div class="options-group">
+                <label class="checkbox-container">
+                  <input type="checkbox" name="offline" value="true">
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Offline Sample Mode</span>
+                </label>
+                <label class="checkbox-container">
+                  <input type="checkbox" name="persist" value="true" checked>
+                  <span class="checkmark"></span>
+                  <span class="checkbox-label">Save to History</span>
+                </label>
+              </div>
+
+              <div class="action-row">
+                <button type="submit" class="submit-btn">
+                  <span class="btn-text"><i class="fa-solid fa-microscope"></i> Analyze Meal</span>
+                </button>
+                <div class="analysis-indicator htmx-indicator loader-indicator" role="status" aria-live="polite">
+                  <div class="spinner"></div>
+                  <span>Extracting nutrition...</span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <aside class="workflow-panel" aria-label="Workflow details">
+          <div>
+            <span class="workflow-step">1</span>
+            <strong>Recognize ingredients</strong>
+            <p>Vision model output is normalized into ingredient names and gram estimates.</p>
+          </div>
+          <div>
+            <span class="workflow-step">2</span>
+            <strong>Resolve nutrition</strong>
+            <p>Rows are matched to cached or USDA-style facts with fallback handling.</p>
+          </div>
+          <div>
+            <span class="workflow-step">3</span>
+            <strong>Review totals</strong>
+            <p>Calories, protein, carbs, and fat appear below without leaving the page.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="analysis-indicator htmx-indicator results-container loading-results" aria-live="polite">
+        <div class="result-card skeleton-card" aria-label="Analysis loading preview">
+          <div class="skeleton-header">
+            <div class="skeleton-pill"></div>
+            <div class="skeleton-title"></div>
+          </div>
+          <div class="skeleton-metrics">
+            <div class="skeleton-metric"></div>
+            <div class="skeleton-metric"></div>
+            <div class="skeleton-metric"></div>
+            <div class="skeleton-metric"></div>
+          </div>
+          <div class="skeleton-table">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="result" class="results-container" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="main-footer">
+    <p>
+      Created by Cerberus &middot;
+      <a href="https://github.com/optim00s/" target="_blank" rel="noopener noreferrer">GitHub</a>
+      &middot;
+      <a href="https://www.aiacademy.az/" target="_blank" rel="noopener noreferrer">AI Academy</a>
+      | Spring 2026
+    </p>
+  </footer>
+</body>
+</html>
