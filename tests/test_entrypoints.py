@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 from ai import Ingredient, NutritionFacts, Nutrition
 from src.api import app
 from src.config import Settings
-from src.cli import main, render_result
+from src.cli import main
 from src.validation import ImageValidationError, validate_image_path, media_type_for_path
 from src.storage.repository import JsonlHistoryRepository, NullHistoryRepository
 from src.models import AnalysisResult, IngredientNutrition
@@ -268,7 +268,7 @@ def test_cli_history(monkeypatch, tmp_path, capsys):
     monkeypatch.setenv("HISTORY_JSONL_PATH", str(history_file))
     
     from src.storage.repository import JsonlHistoryRepository
-    from src.models import AnalysisResult, HistoryRecord
+    from src.models import HistoryRecord
     from ai import Nutrition
     import datetime
     

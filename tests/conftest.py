@@ -84,6 +84,6 @@ def sample_image(tmp_path):
         "00907753de0000000c4944415408d76360000000000004000146a13a"
         "020000000049454e44ae426082"
     )
-    p = tmp_path / "meal.png"
+    p = tmp_path / "meal_rice_chicken_broccoli.png"
     p.write_bytes(png_bytes)
     return str(p)

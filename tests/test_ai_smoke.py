@@ -9,7 +9,6 @@ Add your own tests in tests/test_*.py — these stay as-is.
 
 from __future__ import annotations
 
-import json
 
 import pytest
 
