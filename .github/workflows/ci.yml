@@ -97,6 +97,9 @@ jobs:
           NUTRITION_CACHE_TTL_SECONDS=86400
           EOF
 
+      - name: Clean old compose state
+        run: docker compose down -v --remove-orphans || true
+
       - name: Start backend and database containers
         run: docker compose up --build -d
 
@@ -104,7 +107,16 @@ jobs:
         run: docker compose ps
 
       - name: Check backend health
-        run: curl --fail --retry 10 --retry-delay 3 http://localhost:8000/health
+        run: |
+          for i in {1..30}; do
+            if curl --fail --silent --show-error http://localhost:8000/health; then
+              exit 0
+            fi
+            docker compose ps
+            sleep 2
+          done
+          docker compose logs
+          exit 1
 
       - name: Show compose logs on failure
         if: failure()
