@@ -1,0 +1,467 @@
+% =====================================================================
+% AI Academy -- National AI Center
+% Software Engineering Final Project -- Team Report
+% =====================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{accent2}{HTML}{8B0000}
+\definecolor{ph}{HTML}{6B7280}
+\newcommand{\TODO}[1]{\textcolor{accent2}{\textbf{[TODO: #1]}}}
+\newcommand{\phh}[1]{\textcolor{ph}{\textit{#1}}}
+
+% ===== CONFIGURATION =================================================
+\newcommand{\teamname}{Cerberus Team}
+\newcommand{\topicchoice}{Topic 2 -- AI Food \& Nutrition Analyzer}
+\newcommand{\member}[2]{\textbf{#1} (#2)}
+\newcommand{\reportdate}{\today}
+\newcommand{\repolink}{https://github.com/optim00s/swe\_capstone\_cerberus}
+
+% ===== course meta ===================================================
+\newcommand{\coursecode}{AI-ENG-110}
+\newcommand{\coursename}{Software Engineering}
+\newcommand{\institution}{AI Academy, National AI Center}
+\newcommand{\semester}{Spring 2026}
+
+% ===== PACKAGES ======================================================
+\usepackage[margin=2.2cm,headheight=15pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[final,protrusion=true,expansion=false]{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{enumitem}
+\usepackage[parfill]{parskip}
+\usepackage{listings}
+\usepackage[most]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,positioning,fit,backgrounds}
+
+\emergencystretch=3em
+\hbadness=10000
+\hfuzz=2pt
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=NavyBlue,
+  urlcolor=NavyBlue,
+  citecolor=NavyBlue,
+  pdftitle={\coursecode\ Final Project Report},
+  pdfauthor={\teamname}
+}
+
+% ===== STYLING =======================================================
+\definecolor{accent}{HTML}{0B3D91}
+\definecolor{soft}{HTML}{F2F4F8}
+\definecolor{deliver}{HTML}{E8F0FE}
+\definecolor{deliverframe}{HTML}{1A56DB}
+
+\titleformat{\section}
+  {\Large\bfseries\color{accent}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{accent}}{\thesubsection}{0.5em}{}
+
+\newtcolorbox{deliverbox}{
+  colback=deliver, colframe=deliverframe, boxrule=0.5pt,
+  arc=2pt, left=8pt, right=8pt, top=4pt, bottom=4pt
+}
+
+\newtcolorbox{probebox}{
+  colback=Orange!10, colframe=Orange!85!black, boxrule=0.5pt,
+  arc=2pt, left=8pt, right=8pt, top=4pt, bottom=4pt
+}
+
+\newtcolorbox{responsebox}{
+  colback=black!4, colframe=black!25, boxrule=0.5pt,
+  arc=0pt, left=8pt, right=8pt, top=7pt, bottom=7pt
+}
+
+\definecolor{codegreen}{rgb}{0,0.55,0}
+\definecolor{codegray}{rgb}{0.4,0.4,0.4}
+\definecolor{codepurple}{rgb}{0.55,0,0.78}
+\definecolor{backcolour}{rgb}{0.97,0.97,0.97}
+
+\lstdefinestyle{python}{
+  language=Python,
+  backgroundcolor=\color{backcolour},
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{accent},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  keepspaces=true,
+  numbers=left,
+  numbersep=6pt,
+  tabsize=2,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{black!30},
+}
+
+\lstdefinestyle{bash}{
+  language=bash,
+  backgroundcolor=\color{backcolour},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{black!30},
+  numbers=none,
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textit{\coursecode\ -- Final Report -- \teamname}}
+\fancyhead[R]{\small\textit{\semester}}
+\fancyfoot[L]{\small\textit{\institution}}
+\fancyfoot[R]{\small Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% =====================================================================
+\begin{document}
+
+\begin{center}
+{\small \textsc{\institution} \\[0.2em] \textsc{\coursecode\ -- \coursename\ -- \semester}}\\[1.2em]
+{\Large\bfseries\color{accent} Final Project Report}\\[0.3em]
+{\LARGE\bfseries \topicchoice}\\[0.6em]
+\rule{0.85\textwidth}{0.6pt}
+\end{center}
+
+\vspace{0.6em}
+\begin{tabularx}{\textwidth}{@{}lXlX@{}}
+\textbf{Team:} & \teamname & \textbf{Date:} & \reportdate \\
+\textbf{Repo:} & \url{\repolink} & \textbf{Tag:} & \texttt{v1.0-final} \\
+\textbf{Members:} & \multicolumn{3}{X@{}}{%
+  \member{Sharaf Feyzullayev}{@optim00s},\quad
+  \member{Nijat Samadov}{@NijatSamadov},\quad
+  \member{Samir Abdullazade}{@samirabdullazade}
+}\\
+\end{tabularx}
+\vspace{0.4em}\hrule\vspace{0.6em}
+
+% ===== EXECUTIVE SUMMARY =============================================
+\section*{Executive Summary}
+\addcontentsline{toc}{section}{Executive Summary}
+
+We built an AI Food Analyzer for Topic 2: a user uploads a PNG/JPEG meal image and receives ingredient portions, calories, protein, carbohydrates, and fat through the CLI, FastAPI JSON endpoint, or HTMX web UI. The project keeps the provided \texttt{ai/} package unchanged and adds a typed software-engineering layer around it: environment configuration, upload validation, retry/timeouts, bounded async nutrition lookup, rate limiting, TTL nutrition cache, history persistence, Docker packaging, and offline tests. The reproducible benchmark in \texttt{artefacts/benchmark.json} measured 20 I/O-bound nutrition lookups with cache disabled: sequential average 1.019 seconds, concurrent average 0.111 seconds, and a 9.20x speedup with a maximum parallelism of 10. The main robustness story is that provider calls cross one service boundary, where token-bucket limiting, exponential retry, timeout handling, cache fallback, and typed response models keep API/CLI/UI behavior predictable. The most useful lesson was that the hardest part was not calling an AI model, but isolating the model, nutrition provider, cache, and storage behind small boundaries so tests could run offline and failures could be explained.
+
+\tableofcontents
+\vspace{0.6em}\hrule\vspace{0.4em}
+
+% =====================================================================
+\newpage
+\section{Project Overview}
+
+\subsection{Problem framing \& scope}
+The assignment asks for an AI-assisted food and nutrition analyzer. Our interpretation was: accept one meal image, identify recognizable ingredients with estimated gram amounts, resolve nutrition facts for each ingredient, compute per-row and total macronutrients, and expose the result through production-like entry points rather than a notebook-only demo.
+
+The application accepts PNG/JPEG images up to the configured size limit, which defaults to 5 MB. It returns a typed \texttt{AnalysisResult}: status, image path, ingredient list, per-ingredient nutrition rows, total \texttt{Nutrition}, and any partial errors. The final user-facing entry points are:
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{CLI}: \texttt{python -m foodanalyzer analyze <image>}, with \texttt{--offline}, \texttt{--json}, and \texttt{--no-storage} options, plus \texttt{history --limit N}.
+  \item \textbf{HTTP API}: \texttt{GET /health}, \texttt{POST /analyze}, \texttt{GET /ui}, and \texttt{POST /ui/analyze}.
+  \item \textbf{HTMX Web UI}: an upload form and rendered result/error fragments using the same \texttt{MealAnalyzer} path as the CLI and API.
+\end{itemize}
+
+The online stack uses OpenRouter through the OpenAI-compatible SDK for vision-language ingredient extraction, with the default model configured as \texttt{nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free}. Nutrition data comes from the provided \texttt{ai.get\_nutrition\_provider()} path, and can be wrapped by either an in-memory TTL cache or a PostgreSQL-backed TTL cache. The offline stack is intentionally modest: \texttt{OfflineVLM} infers sample ingredients from known filenames, and \texttt{OfflineNutritionProvider} returns a local per-100g nutrition table. This lets tests, demos, Docker smoke checks, and benchmark runs avoid live OpenRouter or USDA calls.
+
+\subsection{Provider choice and the AI module contract}
+We did not modify the public interface or internals of the provided \texttt{ai/} package. Our code calls the provided \texttt{identify\_ingredients}, \texttt{compute\_totals}, \texttt{get\_nutrition\_provider}, \texttt{Ingredient}, \texttt{Nutrition}, \texttt{NutritionFacts}, and \texttt{NutritionProvider} interfaces from a single boundary class, \texttt{src/services/ai\_service.py}.
+
+OpenRouter support is implemented outside the provided package in \texttt{src/services/openrouter\_provider.py}. The adapter implements the provided \texttt{VLMProvider} contract, encodes the image as a data URL, optionally requests OpenRouter reasoning, redacts image bytes from debug logs, and converts OpenAI SDK failures into \texttt{ProviderError}. Malformed image input is blocked before provider calls by \texttt{validate\_image\_path}; provider timeouts, \texttt{ProviderError}, \texttt{OSError}, and timeout exceptions are retried through \texttt{retry\_async}. Semantically incomplete nutrition lookups become row-level errors, producing a \texttt{partial} analysis rather than crashing the whole meal.
+
+% =====================================================================
+\clearpage
+\section{Architecture}\label{sec:arch}
+
+\subsection{Module map}
+The system is organized around a narrow business orchestrator and injectable service/storage boundaries.
+
+\vspace{0.25em}
+\noindent\makebox[\textwidth][c]{%
+  \includegraphics[height=0.52\textheight,keepaspectratio]{"../visuals/architecture.png"}%
+}
+\vspace{0.35em}
+
+\textbf{Entry points} translate user input into one call to \texttt{MealAnalyzer.analyze}. \textbf{MealAnalyzer} validates the image, asks \texttt{AIService} to identify ingredients, delegates independent nutrition lookups to \texttt{NutritionLookupPipeline}, computes totals, and optionally saves history. \textbf{AIService} is the only class that calls the provided \texttt{ai/} functions; it adds rate limiting, retry, timeout, logging, OpenRouter/offline provider selection, and nutrition cache wrapping. \textbf{History repositories} persist the typed \texttt{HistoryRecord} either to JSONL for offline demos/tests, PostgreSQL for compliance, or a null repository when storage is disabled.
+
+\subsection{OOP design \& key abstractions}
+Two abstractions matter most. First, \texttt{HistoryRepository} is a Python \texttt{Protocol}, because the analyzer only needs the shape of a repository: \texttt{save} and \texttt{list\_recent}. Second, \texttt{CachedNutritionProvider} inherits the provided \texttt{NutritionProvider} interface and composes a wrapped provider, so caching can be added without changing callers.
+
+\begin{lstlisting}[style=python]
+class HistoryRepository(Protocol):
+    async def save(self, record: HistoryRecord) -> None: ...
+    async def list_recent(self, limit: int = 20) -> list[HistoryRecord]: ...
+
+class JsonlHistoryRepository:
+    async def save(self, record: HistoryRecord) -> None: ...
+    async def list_recent(self, limit: int = 20) -> list[HistoryRecord]: ...
+
+class CachedNutritionProvider(NutritionProvider):
+    def __init__(self, wrapped: NutritionProvider, *, ttl_seconds: int) -> None:
+        self._wrapped = wrapped
+        self._ttl_seconds = ttl_seconds
+\end{lstlisting}
+
+The repository uses structural typing because the core analyzer should not care whether history is JSONL, PostgreSQL, or disabled. The nutrition cache uses inheritance because the provided \texttt{ai.NutritionProvider} is the stable public contract, while composition gives us cache-aside behavior around either the live provider or offline provider.
+
+\subsection{Data flow across module boundaries}
+The core SE layer uses typed models from \texttt{src/models.py}: \texttt{IngredientNutrition}, \texttt{AnalysisResult}, \texttt{HistoryRecord}, and \texttt{AnalyzeResponse}. These wrap or aggregate the provided \texttt{ai.Ingredient}, \texttt{ai.Nutrition}, and \texttt{ai.NutritionFacts}. No raw dictionaries cross the analyzer, service, API, or storage boundaries as the primary data object; dictionaries are only used at serialization/deserialization edges such as JSONB writes and FastAPI responses.
+
+% =====================================================================
+\section{Concurrency \& Performance}\label{sec:concurrency}
+
+\subsection{Why this concurrency model}
+Nutrition lookup is I/O-bound: each ingredient can be resolved independently, but provider access may block on network latency or slow fake benchmark latency. We used \texttt{asyncio} plus \texttt{asyncio.gather} and an \texttt{asyncio.Semaphore} in \texttt{NutritionLookupPipeline}. The default bound is \texttt{MAX\_PARALLEL\_LOOKUPS=10}; it can be lowered for more conservative provider behavior or raised for controlled local/fake workloads.
+
+Threads would also work for blocking I/O, but \texttt{AIService.lookup\_nutrition} already isolates synchronous provider calls with \texttt{asyncio.to\_thread}. Keeping orchestration in \texttt{asyncio} makes it straightforward to combine semaphore bounds, timeouts, retries, and HTTP request handlers without adding a second concurrency model.
+
+\subsection{Sequential-vs-concurrent benchmark}
+The benchmark is offline and reproducible. It uses \texttt{SlowBenchmarkNutritionProvider}, a blocking fake nutrition provider with a 0.050 second delay, through the same \texttt{AIService + NutritionLookupPipeline} boundary used by the real analyzer. Cache is disabled with \texttt{nutrition\_cache\_ttl\_seconds=0}, so every lookup hits the fake provider. The current artefacts report:
+
+\begin{center}\small
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Workload} & $N$ & \textbf{Sequential avg.} & \textbf{Concurrent avg.} & \textbf{Speedup} \\
+\midrule
+I/O-bound nutrition lookups & 20 & 1.019 s & 0.111 s & 9.20x \\
+Markdown artefact rounded run & 20 & 1.018 s & 0.110 s & 9.25x \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The exact reproducer is:
+\begin{lstlisting}[style=bash]
+python scripts/bench.py --n 20 --delay 0.05 --parallel 10 --repeats 3
+python scripts/bench.py --n 20 --delay 0.05 --parallel 10 --repeats 3 --format json --output artefacts/benchmark.json
+python scripts/bench.py --n 20 --delay 0.05 --parallel 10 --repeats 3 --format markdown --output artefacts/benchmark.md
+\end{lstlisting}
+
+The measured speedup is close to the theoretical maximum of 10x for 20 items at parallelism 10, because the benchmark is intentionally dominated by independent lookup latency. End-to-end live analysis cannot reach the same multiple because VLM ingredient detection is a single image call before nutrition lookup begins.
+
+\subsection{Rate limit \& politeness}
+Provider calls pass through \texttt{AsyncTokenBucketRateLimiter}. The default budget is \texttt{RATE\_LIMIT\_TOKENS=10} with \texttt{RATE\_LIMIT\_REFILL\_PER\_SECOND=10.0}. This token bucket controls request starts, while the semaphore controls simultaneous nutrition tasks. If no token is available, the limiter logs the wait and sleeps until the next token is refilled. Retry behavior is separate: transient provider errors are retried according to \texttt{RETRY\_ATTEMPTS} and \texttt{RETRY\_BASE\_DELAY\_SECONDS}.
+
+% =====================================================================
+\section{Robustness \& Error Handling}\label{sec:robustness}
+
+\subsection{Wrapping the AI module}
+\texttt{AIService} wraps both ingredient identification and nutrition lookup. Each operation is rate-limited, executed through the appropriate provider, wrapped by \texttt{retry\_async}, and logged at the boundary. The retry helper catches \texttt{ProviderError}, \texttt{OSError}, and timeout exceptions, uses \texttt{asyncio.wait\_for} for per-call timeouts, and raises \texttt{RetryExhausted} after the configured attempt budget.
+
+The defaults are conservative for a student project: 3 attempts, 0.2 second base delay with exponential backoff, 30 second provider timeout, 10 rate-limit tokens, and 10 tokens/second refill. The CLI and API do not expose stack traces to users. The JSON API maps image validation errors to 400, oversized uploads to 413, and provider failures to 503 with a user-safe message. The HTMX endpoint renders an error fragment instead of returning raw Python tracebacks.
+
+\subsection{Failure-mode analysis}
+One concrete exercised failure mode is a nutrition provider failure while other ingredient lookups still succeed. \texttt{NutritionLookupPipeline.\_lookup\_one} catches \texttt{ProviderError} per ingredient and returns an \texttt{IngredientNutrition} row with \texttt{error} set. \texttt{MealAnalyzer} then sets the result status to \texttt{partial} if any row has an error, computes totals from successful rows, and returns the partial result instead of discarding the whole meal. This is tested offline by injecting failing providers rather than waiting for a real USDA outage.
+
+Another exercised failure mode is invalid image input. The validator checks file existence, suffix, non-empty size, maximum size, and magic bytes. A fake PNG with non-PNG bytes fails before OpenRouter, USDA, cache, or storage can be touched. This reduces blast radius and gives a direct error message such as ``file extension is PNG but bytes are not PNG.''
+
+\subsection{Input validation}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{CLI file input}: \texttt{validate\_image\_path} checks path existence, \texttt{.png/.jpg/.jpeg} suffix, non-empty file, configured size limit, and PNG/JPEG magic bytes.
+  \item \textbf{HTTP upload}: FastAPI receives an \texttt{UploadFile}; the app checks byte length before writing, stores it under \texttt{UPLOAD\_DIR}, then runs the same image validator.
+  \item \textbf{Environment}: \texttt{Settings.from\_env} loads \texttt{.env}, parses booleans/ints/floats, and rejects invalid minimum values such as \texttt{MAX\_PARALLEL\_LOOKUPS < 1}.
+  \item \textbf{Provider config}: missing \texttt{OPENROUTER\_API\_KEY} produces a \texttt{ProviderError} when the live OpenRouter adapter is constructed. Offline mode avoids live provider requirements.
+\end{itemize}
+
+% =====================================================================
+\section{Storage \& Caching}\label{sec:storage}
+
+\subsection{Schema}
+History storage is either JSONL, PostgreSQL, or disabled. The PostgreSQL history repository creates this table:
+
+\begin{lstlisting}[style=python,language=sql,numbers=none,basicstyle=\ttfamily\small]
+create table if not exists analysis_history (
+    id text primary key,
+    created_at timestamptz not null,
+    image_path text not null,
+    status text not null,
+    ingredients jsonb not null,
+    rows jsonb not null,
+    totals jsonb not null,
+    errors jsonb not null
+)
+\end{lstlisting}
+
+The PostgreSQL nutrition cache is separate from history:
+
+\begin{lstlisting}[style=python,language=sql,numbers=none,basicstyle=\ttfamily\small]
+create table if not exists nutrition_cache (
+    ingredient_key text primary key,
+    facts jsonb not null,
+    expires_at timestamptz not null,
+    updated_at timestamptz not null default now()
+)
+\end{lstlisting}
+
+JSONB is used because the stored payloads are typed Pydantic/AI models serialized at the boundary. If the model shape changes, the deserializer gives a visible validation failure instead of silently producing a wrong object.
+
+\subsection{Caching policy}
+Nutrition cache is a cache-aside wrapper. Ingredient names are normalized by trimming, lowercasing, and collapsing whitespace. On hit, the cached \texttt{NutritionFacts} is returned. On miss, the wrapped provider is called and the result is written with an expiry timestamp. The default \texttt{NUTRITION\_CACHE\_BACKEND} is \texttt{memory}; \texttt{postgres} survives process restarts; \texttt{none} disables caching. The default TTL is 86400 seconds. The \texttt{scripts/cache\_probe.py} command demonstrates miss/write/hit behavior for repeated lookups.
+
+% =====================================================================
+\section{Testing}\label{sec:testing}
+
+\subsection{Strategy \& coverage}
+The tests are designed to run offline. OpenRouter, nutrition providers, PostgreSQL, and slow I/O paths are replaced with fake providers or monkeypatched connectors. The provided \texttt{tests/test\_ai\_smoke.py} remains unchanged and is part of the normal test run.
+
+\begin{center}\small
+\begin{tabular}{lc}
+\toprule
+\textbf{Suite} & \textbf{Current repo result} \\
+\midrule
+\texttt{pytest --basetemp=.pytest\_tmp -q} & 77 tests passing \\
+\texttt{src/} coverage & 87.94\% \\
+\texttt{--cov-fail-under=85} & passing \\
+Provided \texttt{ai/} smoke tests & passing \\
+Type checking & \texttt{python -m mypy src} passes \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Notable tests}
+\begin{itemize}[itemsep=2pt]
+  \item \textbf{Analyzer happy path}: verifies image validation, offline ingredient detection, nutrition lookup, total calculation, and result status through \texttt{MealAnalyzer}.
+  \item \textbf{Concurrency behavior}: validates that bounded lookup uses async gather and that a single failing ingredient becomes a row-level error instead of cancelling the whole meal.
+  \item \textbf{Retry/rate-limit behavior}: checks exponential retry exhaustion, successful retry after transient failure, and token-bucket waiting.
+  \item \textbf{Cache behavior}: covers memory TTL hit/miss/write, PostgreSQL cache schema interactions through mocked asyncpg behavior, and the cache probe command.
+  \item \textbf{Entry points}: covers CLI output modes, FastAPI upload handling, UI fragments, image magic-byte validation, and history storage paths.
+\end{itemize}
+
+% =====================================================================
+\section{Deployment \& Reproducibility}\label{sec:deploy}
+
+\subsection{Docker image}
+The project ships a single-stage image based on \texttt{python:3.12-slim}. It installs \texttt{requirements.txt}, copies the repository, creates \texttt{runtime/uploads}, switches to a non-root \texttt{appuser}, exposes port 8000, and starts \texttt{uvicorn src.api:app}.
+
+\begin{lstlisting}[style=bash]
+docker build -t foodanalyzer .
+docker run --rm -p 8000:8000 -e OFFLINE_MODE=true -e STORAGE_BACKEND=none foodanalyzer
+docker run --rm foodanalyzer python -m foodanalyzer analyze data/rice_chicken_broccoli.png --offline --json --no-storage
+docker run --rm foodanalyzer python -m pytest --cov=src --cov-report=term-missing --cov-fail-under=85 -q
+\end{lstlisting}
+
+\subsection{Configuration}
+The application reads these environment variables:
+\begin{itemize}[itemsep=2pt]
+  \item \texttt{LLM\_PROVIDER}, \texttt{LLM\_MODEL}, \texttt{OPENROUTER\_API\_KEY}, \texttt{OPENROUTER\_BASE\_URL}, \texttt{OPENROUTER\_REASONING\_ENABLED}.
+  \item \texttt{NUTRITION\_PROVIDER}, \texttt{USDA\_API\_KEY}.
+  \item \texttt{DATABASE\_URL}, \texttt{STORAGE\_BACKEND}, \texttt{HISTORY\_JSONL\_PATH}.
+  \item \texttt{NUTRITION\_CACHE\_BACKEND}, \texttt{NUTRITION\_CACHE\_TTL\_SECONDS}.
+  \item \texttt{UPLOAD\_DIR}, \texttt{MAX\_IMAGE\_SIZE\_MB}, \texttt{MAX\_PARALLEL\_LOOKUPS}.
+  \item \texttt{RETRY\_ATTEMPTS}, \texttt{RETRY\_BASE\_DELAY\_SECONDS}, \texttt{AI\_TIMEOUT\_SECONDS}.
+  \item \texttt{RATE\_LIMIT\_TOKENS}, \texttt{RATE\_LIMIT\_REFILL\_PER\_SECOND}, \texttt{HTTP\_PORT}, \texttt{OFFLINE\_MODE}, and \texttt{LOG\_LEVEL}.
+\end{itemize}
+Missing live API keys only block live online analysis. Offline mode, tests, benchmark, and sample CLI runs work without keys.
+
+% =====================================================================
+\section{Limitations \& Future Work}\label{sec:limits}
+
+\begin{itemize}[itemsep=3pt]
+  \item The vision stage is still a single provider call. If OpenRouter is unavailable and offline mode is disabled, live image understanding fails.
+  \item Offline mode is a demo/test fallback based on sample filenames; it is not a general computer-vision model.
+  \item PostgreSQL support is implemented for history and nutrition cache, but the default local path is JSONL plus memory cache for easy demos.
+  \item The benchmark proves the concurrency layer, not full live provider throughput. A production version should load-test real OpenRouter and USDA limits with observability.
+  \item Portion estimates depend on the VLM response and are not medically precise. A production nutrition app would need calibration, user correction, and stronger uncertainty reporting.
+\end{itemize}
+
+% =====================================================================
+\section{Team Work Division}\label{sec:contributions}
+
+\begin{center}\small
+\begin{tabularx}{\textwidth}{lXl}
+\toprule
+\textbf{Member} & \textbf{Primary ownership} & \textbf{Workload} \\
+\midrule
+Sharaf & Core analyzer orchestration, bounded nutrition lookup pipeline, retry/rate limiter/cache integration, cache probe, HTMX UI, and related tests. & 34\% \\
+Nijat Samadov & FastAPI and CLI entry points, typed settings, validation, Pydantic response models, OpenRouter wrapper, environment example, and entry-point tests. & 33\% \\
+Samir Abdullazade & History persistence, PostgreSQL/JSONL storage paths, Docker packaging, dependency files, benchmark artefacts, README, and storage/benchmark tests. & 33\% \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+% =====================================================================
+\section{Tools \& Acknowledgements}\label{sec:tools}
+
+\begin{responsebox}
+Substantial AI-assistant use was limited to application-layer support and deliverable preparation. Cursor was used to draft and refine Jinja/HTMX templates, CSS styling, and small UI layout fixes; the team reviewed the generated markup and styles against the running web UI before committing them. Codex 5.5 was used for repository-structure planning, command sequences, GitHub Actions CI/Docker guidance, report/slides wording, diagram placement, and PR checklist/description preparation; the team executed the commands, inspected diffs, rebuilt PDFs, and kept only reviewed changes. Claude models were used for phrasing and review prompts around service boundaries, retry/cache/rate-limit explanation, and risk documentation. The final implementation, tests, UI templates, stylesheets, report, slides, and commands were manually reviewed and adapted by the team. The provided \texttt{ai/} package was treated as a course-supplied dependency and its public behavior was not changed.
+\end{responsebox}
+
+% =====================================================================
+\section*{References}
+\addcontentsline{toc}{section}{References}
+
+\begin{enumerate}[label={[\arabic*]},leftmargin=2.4em,itemsep=2pt]
+  \item OpenRouter documentation: \url{https://openrouter.ai/docs}
+  \item OpenAI Python SDK documentation: \url{https://github.com/openai/openai-python}
+  \item FastAPI documentation: \url{https://fastapi.tiangolo.com/}
+  \item PostgreSQL asyncpg documentation: \url{https://magicstack.github.io/asyncpg/}
+  \item USDA FoodData Central API guide: \url{https://fdc.nal.usda.gov/api-guide.html}
+\end{enumerate}
+
+\appendix
+\section{Appendix -- Reproducing the benchmark}
+
+\begin{lstlisting}[style=bash]
+git clone https://github.com/optim00s/swe_capstone_cerberus.git
+cd swe_capstone_cerberus
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python scripts/bench.py --n 20 --delay 0.05 --parallel 10 --repeats 3
+\end{lstlisting}
+
+\clearpage
+\section{Appendix -- Visual Diagrams}
+
+The architecture diagram source is maintained in \texttt{visuals.md} and mirrored in Section~\ref{sec:arch}. The remaining exported PNG diagrams from \texttt{visuals/} are included below for review.
+
+\subsection{End-to-End Workflow Diagram}
+\begin{center}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{"../visuals/End-to-End Workflow Diagram.png"}
+\end{center}
+
+\clearpage
+\subsection{Offline vs Online Logic}
+\begin{center}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{"../visuals/Offline vs Online Logic.png"}
+\end{center}
+
+\clearpage
+\subsection{Nutrition Lookup With Cache Logic}
+\begin{center}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{"../visuals/Nutrition Lookup With Cache Logic.png"}
+\end{center}
+
+\clearpage
+\subsection{Nutrition Lookup Without Cache Logic}
+\begin{center}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{"../visuals/Nutrition Lookup Without Cache Logic.png"}
+\end{center}
+
+\clearpage
+\subsection{PostgreSQL Data Model}
+\begin{center}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{"../visuals/PostgreSQL Data Model and Flow.png"}
+\end{center}
+
+\vspace{0.4em}
+\subsection{PostgreSQL Data Flow}
+\begin{center}
+  \includegraphics[width=\textwidth,height=0.82\textheight,keepaspectratio]{"../visuals/PostgreSQL Data Model and Flow_2.png"}
+\end{center}
+
+\vspace{1em}\hrule\vspace{0.6em}
+\noindent\small\textit{End of report -- thank you for reading.}
+
+\end{document}
