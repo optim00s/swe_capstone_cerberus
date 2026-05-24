@@ -1,0 +1,115 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Ruff
+        run: python -m pip install ruff
+
+      - name: Run Ruff
+        run: python -m ruff check src tests scripts foodanalyzer
+
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run mypy
+        run: python -m mypy src
+
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Run pytest with coverage gate
+        run: python -m pytest --cov=src --cov-report=term-missing --cov-fail-under=85 -q
+
+  docker:
+    name: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build backend image
+        run: docker build -t foodanalyzer-ci .
+
+      - name: Run tests inside backend image
+        run: docker run --rm foodanalyzer-ci python -m pytest --cov=src --cov-report=term-missing --cov-fail-under=85 -q
+
+      - name: Create CI env file for Docker Compose
+        run: |
+          cat > .env <<'EOF'
+          LLM_PROVIDER=openrouter
+          LLM_MODEL=nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free
+          OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+          OPENROUTER_API_KEY=ci-placeholder
+          OPENROUTER_REASONING_ENABLED=false
+          OFFLINE_MODE=true
+          STORAGE_BACKEND=postgres
+          NUTRITION_CACHE_BACKEND=postgres
+          NUTRITION_CACHE_TTL_SECONDS=86400
+          EOF
+
+      - name: Start backend and database containers
+        run: docker compose up --build -d
+
+      - name: Show compose status
+        run: docker compose ps
+
+      - name: Check backend health
+        run: curl --fail --retry 10 --retry-delay 3 http://localhost:8000/health
+
+      - name: Show compose logs on failure
+        if: failure()
+        run: docker compose logs
+
+      - name: Stop compose containers
+        if: always()
+        run: docker compose down -v
